@@ -24,23 +24,28 @@ export class PokemonListComponent implements OnInit {
     this.GetList()
   }
 
-  GetList() {
-    this.pokemonService.getPokemanList().subscribe((response: any) => {
-      console.log(response, "data");
-      this.data = response.results;
-      this.data.forEach((element: any) => {
-        this.num = element.url.split('/')[6];
-        let demo = this.imgUrl + this.num + ".png"
-        let name=element.name;
-        let obj={Name:name,Url:demo};
-        this.arrOfNewData.push(obj);
-      });
-      console.log(this.arrOfNewData);
+ GetList() {
 
+  try{
 
-    })
+      this.pokemonService.getPokemanList().subscribe((response: any) => {
+        console.log(response, "data");
+        this.data = response.results;
+        this.data.forEach((element: any) => {
+          this.num = element.url.split('/')[6];
+          let demo = this.imgUrl + this.num + ".png"
+          let name=element.name;
+          let obj={Name:name,Url:demo};
+          this.arrOfNewData.push(obj);
+        });
 
-  }
+        console.log(this.arrOfNewData);
+    })
+  }catch (e) {
+    console.error(e);
+  }
+
+  }
 
 
 
