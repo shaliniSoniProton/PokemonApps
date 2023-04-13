@@ -10,27 +10,19 @@ import { PokemonService } from 'src/app/service/pokemon.service';
 export class PokemonListComponent implements OnInit {
 
   constructor(private pokemonService: PokemonService) { }
-
   data: any = [];
   arrOfNewData:any=[];
-
-  imgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/";
-
+  imgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/"; //image url for showing image
   url: any;
-
   num: any;
-
   ngOnInit(): void {
-    this.GetList()
+    this.GetList()//Called the get pokemons list
   }
-
+  //Get Pokemons Detail
  GetList() {
-
   try{
-
       this.pokemonService.getPokemanList().subscribe((response: any) => {
-        console.log(response, "data");
-        this.data = response.results;
+       this.data = response.results;
         this.data.forEach((element: any) => {
           this.num = element.url.split('/')[6];
           let demo = this.imgUrl + this.num + ".png"
@@ -38,16 +30,9 @@ export class PokemonListComponent implements OnInit {
           let obj={Name:name,Url:demo};
           this.arrOfNewData.push(obj);
         });
-
-        console.log(this.arrOfNewData);
     })
   }catch (e) {
     console.error(e);
   }
-
   }
-
-
-
-
 }
